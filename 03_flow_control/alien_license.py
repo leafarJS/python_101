@@ -1,5 +1,8 @@
 # jorge wants to drive a car 🛺 and he hears that in planet Zortan 🪐 there is no age limit for getting a license.
 
+
+#jorge quiere manejar un carro 🛺   y escucha que en el planeta Zortan  🪐  no hay límite de edad para sacar la licencia.
+
 age: int = 13
 planet: str = "Earth"
 

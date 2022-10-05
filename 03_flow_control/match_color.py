@@ -1,5 +1,6 @@
 #while traveling to Zortan, jorge packed lost of stuff, Let's see if he has anything that matches your favorite color 
 
+#mientras viajaba a Zortan, jorge empacó cosas perdidas, a ver si tiene algo que coincida con tu color favorito
 
 """
 INFO -

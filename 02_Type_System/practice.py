@@ -1,5 +1,8 @@
 # jorge wants to open a pizza 🍕 shop and need to write a program for accepting orders
 
+#jorge quiere abrir una pizzería 🍕 y necesita escribir un programa para aceptar pedidos
+
+
 #Tips - Always visualize first, then start coding
 
 # variable declaration 

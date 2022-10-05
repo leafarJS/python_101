@@ -1,6 +1,7 @@
 
 # jorge wants to drive a car 🚗 and wants to know if he can apply for a driving license or not
 
+#jorge quiere conducir un auto 🚗 y quiere saber si puede solicitar una licencia de conducir o no
 
 age: int = 13
 

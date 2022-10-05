@@ -14,6 +14,24 @@ Each avenger has its attacking power and they have to fight Thanos to save Zorta
 
 Avengers can attack only in pairs and get only 3 chance to kill Thanos, or else Thanos will kill avengers and we loose the game.
 """
+"""
+¡¡Zortan está bajo ataque!! ¡Ha llegado Thanos!
+--------------------------------------------
+
+
+Como Zortan está siendo atacado, Jorge llama a sus amigos Vengadores de la Tierra, los Vengadores reciben su llamada y envían a 4 Vengadores para salvar a Zortan.
+
+1. hombre de hierro
+2. Viuda negra
+3. Hombre Araña
+4. Hulk
+
+Cada vengador tiene su poder de ataque y tienen que luchar contra Thanos para salvar a Zortan.
+
+Los vengadores pueden atacar solo en parejas y solo tienen 3 oportunidades de matar a Thanos, o Thanos matará a los vengadores y perderemos el juego.
+"""
+
+
 from typing import Final
 
 # ! Un construcción especial para tipado que indica a los validadores de tipo que un nombre no puede ser reasignado o sobrescrito en una subclase.
