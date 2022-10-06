@@ -148,7 +148,7 @@ def win_or_loose() -> None:
   LOST_MSG: Final[str] = "Thanos killed Avengers and captured Zortan!! 💀 💀 💀"
   
   #print a nice separatin line
-  print("*=" * 35)
+  print("*=" * 70)
   
   #win or lose
   if hero_life >= villian_life:
