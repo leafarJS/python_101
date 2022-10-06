@@ -71,7 +71,7 @@ for attack in range(3):
   
 
   #output
-  print(f"Attack: {attack} => {current_super_hero['name']} is going to fight with {current_super_villian['name']}")
+  print(f"Attack: {attack + 1} => {current_super_hero['name']} is going to fight with {current_super_villian['name']}")
   print(f"the hero still has life: {hero_life}")
   print(f"the villian still has life: {villians_life}")
    
