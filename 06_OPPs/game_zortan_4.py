@@ -1,168 +1,210 @@
-
 """
 Save Zortan:
 ------------
-Let's convert the game logic into small functions.
-Principles:
------------
-1. DRY - Don't Repeat Yourself -
-================================
-Try to keep your code as DRY as possible, group common functionality into individual functions.
-
-2. SRP - Single Responsibility Principle -
-==========================================
-Ideally one function should be responsible for only one operation.
-
-Note:
------
-We will also learn about global & local scope of variables (Using scratch pad)
+Let's improve our design by using classes.
 """
-""" 
-Guardar Zortan:
-------------
-Convirtamos la lógica del juego en pequeñas funciones.
 
-Principios:
------------
-1. DRY - No te repitas -
-================================
-Trate de mantener su código lo más DRY posible, agrupe la funcionalidad común en funciones individuales.
+from enum import Enum, auto
 
-2. SRP - Principio de Responsabilidad Única -
-==========================================
-Idealmente, una función debería ser responsable de una sola operación.
-
-Nota:
------
-También aprenderemos sobre el alcance global y local de las variables (usando el bloc de notas)
-"""
-#Import the stuff we require
+# we need this for generating random nos.
 from random import randint
-from typing import Final 
-
-#__________________LIFE___________________#
-#Helper variables
-#Helper variables
-hero_life: int = 0
-villian_life: int = 0
-
-def increment_hero_life(life: int) -> None:
-  #increment hero life
-  global hero_life
-  hero_life += life
-  
-def decrement_hero_life(life: int) -> None:
-  #decrement hero life
-  global hero_life
-  hero_life -= life
-  
-def increment_villian_life(life: int) -> None:
-  #increment hero life
-  global villian_life
-  villian_life += life
-  
-def decrement_villian_life(life: int) -> None:
-  #decrement hero life
-  global villian_life
-  villian_life -= life
-#__________________HEROES___________________#
-
-def get_all_super_heroes():
-  # Super Heroes
-  IRONMAN = {"name": "Ironman", "attack_power": 250, "life": 800}
-  BLACKWIDOW = {"name": "Blackwidow", "attack_power": 100, "life": 600}
-  SPIDERMAN = {"name": "Spiderman", "attack_power": 150, "life": 700}
-  HULK = {"name": "Hulk", "attack_power": 300, "life": 1000}
-  # All Super Heros
-  super_heroes = [IRONMAN, BLACKWIDOW, SPIDERMAN, HULK]
-  return super_heroes
-
-def get_super_heroe(index:int) -> None:
-  #returns super heroe from the given index
-  super_heroe = get_all_super_heroes()
-  if index < len(super_heroe):
-    return super_heroe[index]
-  else:
-    return None
-
-#__________________VILLIANS___________________#
-
-def get_all_super_villians():
-  # Super Villains
-  THANOS = {"name": "Thanos", "attack_power": 400, "life": 1800}
-  REDSKULL = {"name": "Redskull", "attack_power": 300, "life": 800}
-  PROXIMA = {"name": "Proxima", "attack_power": 320, "life": 800}
-  # All Super Heros
-  super_villains = [THANOS, REDSKULL, PROXIMA]
-  return super_villains
 
 
-def get_super_villian(index:int) -> None:
-  #returns super villian from the given index
-  super_villian = get_all_super_villians()
-  if index < len(super_villian):
-    return super_villian[index]
-  else:
-    return None
+class CharacterType(Enum):
+    """Defines the Character Type"""
+
+    SUPERHERO = auto()
+    VILLAIN = auto()
 
 
+class Character:
+    """Defines a character"""
+
+    def __init__(self, name: str, attack_power: int, life: int) -> None:
+        """Creates an instance of `Character`"""
+        self.name = name
+        self.attack_power = attack_power
+        self.life = life
+
+    def __str__(self) -> str:
+        return (
+            f"Name: {self.name}, Attack Power: {self.attack_power}, Life: {self.life}"
+        )
 
 
+class SuperHero(Character):
+    """Superhero"""
 
-#__________________MAIN LOGIC___________________#
-def attack() -> None:
-  #Attack
-  for attack_num in range(3):
-    #each interation get a new hero & villain
-    heroe_index = randint(0,3)
-    villian_index = randint(0,2)
-    
-    current_super_heroe = get_super_heroe(heroe_index)
-    current_super_villian = get_super_villian(villian_index)
-    
-    if current_super_heroe and current_super_villian:
-      #attack
-      simulate_attack(attack_num, current_super_heroe, current_super_villian)
+    def __init__(self, name: str, attack_power: int, life: int) -> None:
+        super().__init__(name, attack_power, life)
+        self.role = CharacterType.SUPERHERO
+
+    def __str__(self) -> str:
+        return (
+            f"Superhero => Name: {self.name}, Attack Power: {self.attack_power},"
+            f" Life: {self.life}"
+        )
+
+
+class Villain(Character):
+    """Villain"""
+
+    def __init__(self, name: str, attack_power: int, life: int) -> None:
+        super().__init__(name, attack_power, life)
+        self.role = CharacterType.VILLAIN
+
+    def __str__(self) -> str:
+        return (
+            f"Villain => Name: {self.name}, Attack Power: {self.attack_power},"
+            f" Life: {self.life}"
+        )
+
+
+class Life:
+    """
+    Helper class for managing Life.
+    NOTE: Also see `Data Classes` for alternative solution.
+    url - https://docs.python.org/3/library/dataclasses.html
+    """
+
+    hero_life = 0
+    villain_life = 0
+
+    @staticmethod
+    def inc_hero_life(life: int) -> None:
+        """Increases Hero Life"""
+
+        Life.hero_life += life
+
+    @staticmethod
+    def dec_hero_life(life: int) -> None:
+        """Decreases Hero Life"""
+
+        Life.hero_life -= life
+
+    @staticmethod
+    def inc_villain_life(life: int) -> None:
+        """Increases Villain Life"""
+
+        Life.villain_life += life
+
+    @staticmethod
+    def dec_villain_life(life: int) -> None:
+        """Decreases Villain Life"""
+
+        Life.villain_life -= life
+
+
+# ---------------------------- Superheros -------------------------------
+
+
+def get_all_superheros() -> list[SuperHero]:
+    """Return a list of all Superheros"""
+    ironman = SuperHero(name="Ironman", attack_power=250, life=1000)
+    blackwidow = SuperHero(name="Blackwidow", attack_power=180, life=800)
+    spiderman = SuperHero(name="Spiderman", attack_power=190, life=700)
+    hulk = SuperHero(name="Hulk", attack_power=300, life=1100)
+
+    # All Superheros
+    superheros = [ironman, blackwidow, spiderman, hulk]
+
+    return superheros
+
+
+def get_superhero(index: int) -> SuperHero:
+    """Returns superhero from the given index."""
+    superheros = get_all_superheros()
+    if index < len(superheros):
+        return superheros[index]
     else:
-      print("Error |=> No superheroes or villains to fight.")
-    
+        return SuperHero
 
-def simulate_attack(attack_num: int, superheroe, supervillian) -> None:
-  #simulate the actual attack
-  
-  #set life
-  increment_hero_life(superheroe['life'])
-  increment_villian_life(supervillian['life'])
 
-  print(f"Attack:{attack_num + 1} => {superheroe['name']} is going to fight with {supervillian['name']}")
-  
-  #actual attack
-  decrement_hero_life(supervillian['attack_power'])
-  decrement_villian_life(superheroe['attack_power'])
-  
-  #______________FINAL GAME STATUS_______________#
-  
+# ---------------------------- Villains -------------------------------
+
+
+def get_all_villains() -> list[Villain]:
+    """Returns a list of all Villains"""
+    # Super Villains
+    thanos = Villain(name="Thanos", attack_power=400, life=1500)
+    redskull = Villain(name="Redskull", attack_power=300, life=800)
+    proxima = Villain(name="Proxima", attack_power=320, life=800)
+
+    # All Villains
+    villains = [thanos, redskull, proxima]
+
+    return villains
+
+
+def get_villain(index: int) -> Villain:
+    """Returns a single villain from the given index"""
+    villains = get_all_villains()
+    if index < len(villains):
+        return villains[index]
+    else:
+        return Villain
+
+
+# ---------------------------- Main Logic -------------------------------
+
+
+def attack() -> None:
+    """Start the attack"""
+    for attack_num in range(3):
+        # each iteration get a new hero & villain
+        hero_index = randint(0, 3)
+        villain_index = randint(0, 2)
+        # Current Superhero & Villain
+        current_superhero = get_superhero(hero_index)
+        current_villain = get_villain(villain_index)
+        if current_superhero and current_villain:
+            __simulate_attack(attack_num, current_superhero, current_villain)
+        else:
+            print("Error! No superheros or villains to fight.")
+
+
+def __simulate_attack(attack_num: int, superhero: SuperHero, villain: Villain) -> None:
+    """Simulate the actual attack"""
+    # Set life
+    Life.inc_hero_life(superhero.life)
+    Life.inc_villain_life(villain.life)
+
+    # Print attack msg
+    print(
+        f"Attack: {attack_num + 1} => {superhero.name} is going to fight with {villain.name}."
+    )
+
+    # Actual attack
+    Life.dec_hero_life(villain.attack_power)
+    Life.dec_villain_life(superhero.attack_power)
+
+
+# ---------------------------- Final Game Status -------------------------------
+
+
 def win_or_loose() -> None:
-  # declare helper messages 
-  WIN_MSG: Final[str] = "Avengers successfully saved Zortan!!! ✨ ✨ ✨"
-  LOST_MSG: Final[str] = "Thanos killed Avengers and captured Zortan!! 💀 💀 💀"
-  
-  #print a nice separatin line
-  print("*=" * 70)
-  
-  #win or lose
-  if hero_life >= villian_life:
-    print(WIN_MSG)
-  else:
-    print(LOST_MSG)
-    
-#______________MAIN_______________#  
+    """Determine if Avengers won or lost"""
+
+    WIN_MSG = "Avengers successfully saved Zortan!!! ✨ ✨ ✨"
+    LOST_MSG = "Thanos killed Avengers and captured Zortan!!💀 💀 💀"
+
+    print("=" * 58)
+
+    # Win or Loose
+    if Life.hero_life >= Life.villain_life:
+        print(WIN_MSG)
+    else:
+        print(LOST_MSG)
+
+
+# ---------------------------- Main -------------------------------
+
 
 def main() -> None:
-  #Start the game
-  attack()
-  win_or_loose()
-  
-  
-#______________START GAME_______________# 
+    """Starts the Game"""
+    attack()
+    win_or_loose()
+
+
+# ---------------------------- Start Game -------------------------------
 main()
